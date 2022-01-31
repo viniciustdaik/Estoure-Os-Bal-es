@@ -202,7 +202,7 @@ if (World.frameCount % 100 == 0) {
   if(score==-3&&gamestate==END){
     fill('red')
     textSize(30);
-    text("Fim De Jogo!", 110, 200);
+    text("Fim De Jogo!", width/2-90, height/2+45);
   }
 }
 
