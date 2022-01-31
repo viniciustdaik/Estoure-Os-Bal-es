@@ -131,6 +131,10 @@ if (World.frameCount % 100 == 0) {
   }
 }
   if(gamestate==END){
+    fill('red');
+    stroke('darkred');
+    textSize(30);
+    text("Fim De Jogo!", width/2-90, height/2+45);
     textSize(20);
     fill('cyan');
     stroke('green');
@@ -199,12 +203,7 @@ if (World.frameCount % 100 == 0) {
   stroke('green');
   text("Vidas: "+ score, 30, 50);
   text("Maior Vidas Ganhadas: "+ score, 30, 75);
-  if(score == -3&&gamestate==END){
-    fill('red');
-    stroke('darkred');
-    textSize(30);
-    text("Fim De Jogo!", width/2-90, height/2+45);
-  }
+
 }
 
 function redBalloon() {
