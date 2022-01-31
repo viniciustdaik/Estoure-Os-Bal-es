@@ -4,10 +4,11 @@ purple_balloonImage, orange_balloonImage, yellow_balloonImage;
 var END = 0;
 var PLAY = 1;
 var gamestate = PLAY;
-var score = 0;
+var score = 1;
+var highscore = 1;
 
 function preload(){  
-  backgroundImage = loadImage("background0.png");
+  backgroundImage = loadImage("background0_long_width&height.png");
   
   arrowImage = loadImage("arrow0.png");
   bowImage = loadImage("bow0.png");
@@ -21,16 +22,15 @@ function preload(){
 }
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(windowWidth, windowHeight);//400, 400
   
   // criar o fundo
-  scene = createSprite(0,0,400,400);
-  scene.addImage(backgroundImage);
-  scene.scale = 2.5
+  scene = createSprite(width/2+100, height/2);// 0, 0, 400, 400
+  scene.addImage("backgroundimg", backgroundImage);
   
   // criando arco para atirar a flecha
-  bow = createSprite(380,220,20,50);
-  bow.addImage(bowImage); 
+  bow = createSprite(windowWidth-20, height/2, 20, 50);//380,220
+  bow.addImage("bowimg", bowImage); 
   bow.scale = 1;
   
   redB= new Group();
@@ -50,7 +50,7 @@ function draw() {
   // movendo o fundo
   
 
-  if (scene.x < 0){
+  if (scene.x < 670){
     scene.x = scene.width/2;
   }
   
@@ -59,8 +59,8 @@ function draw() {
   if(bow.y <40){
     bow.y = 40;
   }
-  if(bow.y >359){
-    bow.y = 359;
+  if(bow.y > windowHeight-41){//> 359
+    bow.y = windowHeight-41;//359
   }
   // soltar a flecha quando a tecla de espaço for pressionada
   
@@ -96,21 +96,22 @@ function draw() {
   if(score==-3){
     gamestate=END;
   }
+  console.log("Estado De Jogo: "+gamestate);
+  console.log("Aleatório: "+select_balloon);
   if(gamestate==PLAY){
     var select_balloon = Math.round(random(1,7));
      if(keyDown("space")) {
-    createArrow();  
-  }
+      createArrow();  
+    }
   scene.velocityX = -3 
-  } 
+   
   
  
   
-  console.log("Estado De Jogo: "+gamestate);
-  console.log("Aleatório: "+select_balloon);
+  
   //criando inimigos contínuos
   
-if (World.frameCount % 100 == 0&&gamestate==PLAY) {
+if (World.frameCount % 100 == 0) {
     if (select_balloon == 1) {
       redBalloon();
     } else if (select_balloon == 2) {
@@ -128,15 +129,29 @@ if (World.frameCount % 100 == 0&&gamestate==PLAY) {
     }else{
     }
   }
+}
   if(gamestate==END){
+    textSize(20);
+    fill('cyan');
+    stroke('green');
+    text("Clique/Toque Para Jogar De Novo!", width/2-155, height/2);
+    scene.visible = false;
+    bow.visible = false;
     pinkB.destroyEach();
     orangeB.destroyEach();
     redB.destroyEach();
     yellowB.destroyEach();
     blueB.destroyEach();
     purpleB.destroyEach();
+    arrowGroup.destroyEach();
     greenB.destroyEach();
     scene.velocityX = 0;
+    if(mousePressedOver(scene)
+    ||mousePressedOver(bow)
+    ||touches.length > 0){
+      touches = [];
+      reset();
+    }
   }
   
   if (arrowGroup.isTouching(redB)) {
@@ -181,7 +196,9 @@ if (World.frameCount % 100 == 0&&gamestate==PLAY) {
   drawSprites();
   textSize(20);
   fill('gold');
-  text("Pontuação: "+ score, 230,50);
+  stroke('green');
+  text("Vidas: "+ score, 30, 50);
+  text("Maior Vidas Ganhadas: "+ score, 30, 75);
   if(score==-3&&gamestate==END){
     fill('red')
     textSize(30);
@@ -190,10 +207,10 @@ if (World.frameCount % 100 == 0&&gamestate==PLAY) {
 }
 
 function redBalloon() {
-  var red = createSprite(0,Math.round(random(25, 370)), 10, 10);
+  var red = createSprite(0,Math.round(random(25, windowHeight-30)), 10, 10);
   red.addImage(red_balloonImage);
   red.velocityX = 3;
-  red.lifetime = 150;
+  red.lifetime = 650;
   red.scale = 0.1;
   redB.add(red);
   red.depth = bow.depth;
@@ -201,10 +218,10 @@ function redBalloon() {
 }
 
 function blueBalloon() {
-  var blue = createSprite(0,Math.round(random(25, 370)), 10, 10);
+  var blue = createSprite(0,Math.round(random(25, windowHeight-30)), 10, 10);
   blue.addImage(blue_balloonImage);
   blue.velocityX = 3;
-  blue.lifetime = 150;
+  blue.lifetime = 650;
   blue.scale = 0.1;
   blueB.add(blue);
   blue.depth = bow.depth;
@@ -212,10 +229,10 @@ function blueBalloon() {
 }
 
 function greenBalloon() {
-  var green = createSprite(0,Math.round(random(25, 370)), 10, 10);
+  var green = createSprite(0,Math.round(random(25, windowHeight-30)), 10, 10);
   green.addImage(green_balloonImage);
   green.velocityX = 3;
-  green.lifetime = 150;
+  green.lifetime = 650;
   green.scale = 0.1;
   greenB.add(green);
   green.depth = bow.depth;
@@ -223,10 +240,10 @@ function greenBalloon() {
 }
 
 function pinkBalloon() {
-  var pink = createSprite(0,Math.round(random(25, 370)), 10, 10);
+  var pink = createSprite(0,Math.round(random(25, windowHeight-30)), 10, 10);
   pink.addImage(pink_balloonImage);
   pink.velocityX = 3;
-  pink.lifetime = 150;
+  pink.lifetime = 650;
   pink.scale = 1
   pinkB.add(pink);
   pink.depth = bow.depth;
@@ -238,20 +255,20 @@ function pinkBalloon() {
  function createArrow() {
   var arrow= createSprite(100, 100, 60, 10);
   arrow.addImage(arrowImage);
-  arrow.x = 360;
+  arrow.x = windowWidth-40;
   arrow.y=bow.y;
   arrow.velocityX = -4;
-  arrow.lifetime = 100;
+  arrow.lifetime = 650;
   arrow.scale = 0.3;
   arrow.depth = bow.depth;
   bow.depth = bow.depth+1;
   arrowGroup.add(arrow);
 }
 function orangeBalloon() {
-  var orange = createSprite(0,Math.round(random(25, 370)), 10, 10);
+  var orange = createSprite(0,Math.round(random(25, windowHeight-30)), 10, 10);
   orange.addImage(orange_balloonImage);
   orange.velocityX = 3;
-  orange.lifetime = 150;
+  orange.lifetime = 650;
   orange.scale = 0.1;
   orange.depth = bow.depth;
   bow.depth = bow.depth+1;
@@ -259,10 +276,10 @@ function orangeBalloon() {
 }
 
 function yellowBalloon() {
-  var yellow = createSprite(0,Math.round(random(25, 370)), 10, 10);
+  var yellow = createSprite(0,Math.round(random(25, windowHeight-30)), 10, 10);
   yellow.addImage(yellow_balloonImage);
   yellow.velocityX = 3;
-  yellow.lifetime = 150;
+  yellow.lifetime = 650;
   yellow.scale = 0.1;
   yellow.depth = bow.depth;
   bow.depth = bow.depth+1;
@@ -270,12 +287,23 @@ function yellowBalloon() {
 }
 
 function purpleBalloon() {
-  var purple = createSprite(0,Math.round(random(25, 370)), 10, 10);
+  var purple = createSprite(0,Math.round(random(25, windowHeight-30)), 10, 10);
   purple.addImage(purple_balloonImage);
   purple.velocityX = 3;
-  purple.lifetime = 150;
+  purple.lifetime = 650;
   purple.scale = 0.1;
   purple.depth = bow.depth;
   bow.depth = bow.depth+1;
   purpleB.add(purple);
+}
+
+function reset(){
+  scene.visible = true;
+  bow.visible = true;
+  gamestate = PLAY;
+  if(score > highscore){
+    highscore = score;
+  }
+  score = 1;
+
 }
