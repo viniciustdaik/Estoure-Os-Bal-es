@@ -48,7 +48,9 @@ function setup() {
 function draw() {
  background('cyan');
   // movendo o fundo
-  
+  if(score > highscore){
+    highscore = score;
+  }
 
   if (scene.x < 670){
     scene.x = scene.width/2;
@@ -93,7 +95,7 @@ function draw() {
     score = score-1;
     greenB.destroyEach();
   }
-  if(score == -3){
+  if(score == 0){
     gamestate = END;
   }
   console.log("Estado De Jogo: "+gamestate);
@@ -104,7 +106,7 @@ function draw() {
       createArrow();  
     }
   scene.velocityX = -3 
-   
+  
   
  
   
@@ -202,8 +204,8 @@ if (World.frameCount % 100 == 0) {
   fill('gold');
   stroke('green');
   text("Vidas: "+ score, 30, 50);
-  text("Maior Vidas Ganhadas: "+ score, 30, 75);
-
+  text("Maior Vidas Ganhadas: "+ highscore, 30, 75);
+  
 }
 
 function redBalloon() {
@@ -301,9 +303,6 @@ function reset(){
   scene.visible = true;
   bow.visible = true;
   gamestate = PLAY;
-  if(score > highscore){
-    highscore = score;
-  }
   score = 1;
 
 }
