@@ -6,10 +6,11 @@ var PLAY = 1;
 var gamestate = PLAY;
 var score = 1;
 var highscore = 1;
+var shootbutton, shootimg;
 
 function preload(){  
   backgroundImage = loadImage("background0_long_width&height.png");
-  
+  shootimg = loadImage("shoot.png")
   arrowImage = loadImage("arrow0.png");
   bowImage = loadImage("bow0.png");
   red_balloonImage = loadImage("red_balloon0.png");
@@ -27,6 +28,10 @@ function setup() {
   // criar o fundo
   scene = createSprite(width/2+100, height/2);// 0, 0, 400, 400
   scene.addImage("backgroundimg", backgroundImage);
+  
+  shootbutton = createSprite(width/2, windowHeight-45);
+  shootbutton.addImage("buttonimg", shootimg);
+  shootbutton.scale = 0.2;
   
   // criando arco para atirar a flecha
   bow = createSprite(windowWidth-20, height/2, 20, 50);//380,220
@@ -102,8 +107,8 @@ function draw() {
   console.log("Aleatório: "+select_balloon);
   if(gamestate==PLAY){
     var select_balloon = Math.round(random(1,7));
-     if(keyDown("space")) {
-      createArrow();  
+     if(keyDown("space")||mousePressedOver(shootbutton)) {
+      createArrow();
     }
   scene.velocityX = -3 
   
@@ -143,6 +148,7 @@ if (World.frameCount % 100 == 0) {
     text("Clique/Toque Para Jogar De Novo!", width/2-155, height/2);
     scene.visible = false;
     bow.visible = false;
+    shootbutton.visible = false;
     pinkB.destroyEach();
     orangeB.destroyEach();
     redB.destroyEach();
@@ -302,6 +308,7 @@ function purpleBalloon() {
 function reset(){
   scene.visible = true;
   bow.visible = true;
+  shootbutton.visible = true;
   gamestate = PLAY;
   score = 1;
 
