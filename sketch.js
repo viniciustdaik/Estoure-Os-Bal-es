@@ -1,9 +1,9 @@
 var bow , arrow,  background, redB, pinkB, greenB ,blueB, purpleB, yellowB, orangeB ,arrowGroup, edges;
 var bowImage, arrowImage, green_balloonImage, red_balloonImage, pink_balloonImage ,blue_balloonImage, backgroundImage, 
 purple_balloonImage, orange_balloonImage, yellow_balloonImage;
-var END = 0;
-var PLAY = 1;
-var gamestate = PLAY;
+//var END = 0;
+//var PLAY = 1;
+var gamestate = "server";
 var score = 1;
 var highscore = 1;
 var shootbutton, shootimg;
@@ -28,6 +28,7 @@ function setup() {
   // criar o fundo
   scene = createSprite(width/2+100, height/2);// 0, 0, 400, 400
   scene.addImage("backgroundimg", backgroundImage);
+  scene.visible = false;
   
   shootbutton = createSprite(width/2, windowHeight-45);
   shootbutton.addImage("buttonimg", shootimg);
@@ -52,17 +53,32 @@ function setup() {
 
 function draw() {
  background('cyan');
-  // movendo o fundo
+  if(gamestate == "server"){
+    fill('cyan');
+    stroke('green');
+    textSize(20);
+    text("Pressione A Barra De Espaço", 35, 105);
+    text("Para Atirar Flechas!", 35, 125);
+    if(mousePressedOver(scene)
+    ||mousePressedOver(bow)
+    ||mousePressedOver(shootbutton)){
+      gamestate = "play";
+      scene.visible = true;
+    }
+  }
   if(score > highscore){
     highscore = score;
   }
-
+  // movendo o fundo
   if (scene.x < 670){
     scene.x = scene.width/2;
   }
   
   //movendo o arco
-  bow.y = World.mouseY;
+  if(!mouseIsOver(shootbutton)){
+    bow.y = World.mouseY;
+  }
+  
   if(bow.y <40){
     bow.y = 40;
   }
@@ -101,13 +117,13 @@ function draw() {
     greenB.destroyEach();
   }
   if(score == 0){
-    gamestate = END;
+    gamestate = "end";//END;
   }
   console.log("Estado De Jogo: "+gamestate);
   console.log("Aleatório: "+select_balloon);
-  if(gamestate==PLAY){
+  if(gamestate == "play"){//PLAY){
     var select_balloon = Math.round(random(1,7));
-     if(keyDown("space")||mousePressedOver(shootbutton)) {
+     if(keyDown("space")||mousePressedOver(shootbutton)){//&&mouseIsOver(shootbutton)) {
       createArrow();
     }
   scene.velocityX = -3 
@@ -137,7 +153,7 @@ if (World.frameCount % 100 == 0) {
     }
   }
 }
-  if(gamestate==END){
+  if(gamestate == "end"){//END){
     fill('red');
     stroke('darkred');
     textSize(30);
@@ -309,7 +325,7 @@ function reset(){
   scene.visible = true;
   bow.visible = true;
   shootbutton.visible = true;
-  gamestate = PLAY;
+  gamestate = "play";//PLAY;
   score = 1;
 
 }
