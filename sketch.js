@@ -39,6 +39,7 @@ function setup() {
   bow = createSprite(windowWidth-20, height/2, 20, 50);//380,220
   bow.addImage("bowimg", bowImage); 
   bow.scale = 1;
+  bow.visible = false;
   
   redB= new Group();
   greenB= new Group();
@@ -64,6 +65,7 @@ function draw() {
     ||mousePressedOver(bow)
     ||mousePressedOver(shootbutton)){
       gamestate = "play";
+      bow.visible = true;
       shootbutton.visible = true;
       scene.visible = true;
     }
