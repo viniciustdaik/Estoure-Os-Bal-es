@@ -63,7 +63,9 @@ function draw() {
     text("Para Atirar Flechas!", 35, 125);
     if(mousePressedOver(scene)
     ||mousePressedOver(bow)
-    ||mousePressedOver(shootbutton)){
+    ||mousePressedOver(shootbutton)
+    ||touches.length > 0){
+      touches = [];
       gamestate = "play";
       bow.visible = true;
       shootbutton.visible = true;
