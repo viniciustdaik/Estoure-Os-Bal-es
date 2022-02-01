@@ -33,6 +33,7 @@ function setup() {
   shootbutton = createSprite(width/2, windowHeight-45);
   shootbutton.addImage("buttonimg", shootimg);
   shootbutton.scale = 0.2;
+  shootbutton.visible = false;
   
   // criando arco para atirar a flecha
   bow = createSprite(windowWidth-20, height/2, 20, 50);//380,220
@@ -63,6 +64,7 @@ function draw() {
     ||mousePressedOver(bow)
     ||mousePressedOver(shootbutton)){
       gamestate = "play";
+      shootbutton.visible = true;
       scene.visible = true;
     }
   }
