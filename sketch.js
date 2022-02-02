@@ -58,9 +58,9 @@ function draw() {
   if(gamestate == "server"){
     fill('cyan');
     stroke('green');
-    textSize(20);
-    text("Pressione A Barra De Espaço", 35, 105);
-    text("Para Atirar Flechas!", 35, 125);
+    textSize(45);
+    text("Pressione A Barra De Espaço", 35, 125);
+    text("Para Atirar Flechas!", 35, 165);
     if(mousePressedOver(scene)
     ||mousePressedOver(bow)
     ||mousePressedOver(shootbutton)
@@ -228,11 +228,11 @@ if (World.frameCount % 100 == 0) {
   }
 
   drawSprites();
-  textSize(20);
+  textSize(35);
   fill('gold');
   stroke('green');
   text("Vidas: "+ score, 30, 50);
-  text("Maior Vidas Ganhadas: "+ highscore, 30, 75);
+  text("Maior Vidas Ganhadas: "+ highscore, 30, 85);
   
 }
 
