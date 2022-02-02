@@ -129,7 +129,7 @@ function draw() {
   console.log("Aleatório: "+select_balloon);
   if(gamestate == "play"){//PLAY){
     var select_balloon = Math.round(random(1,7));
-     if(keyDown("space")||mousePressedOver(shootbutton)){//&&mouseIsOver(shootbutton)) {
+     if(keyDown("space")||mouseIsOver(shootbutton)){//&&mouseIsOver(shootbutton)) {
       createArrow();
     }
   scene.velocityX = -3 
