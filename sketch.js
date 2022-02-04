@@ -7,9 +7,10 @@ var gamestate = "server";
 var score = 1;
 var highscore = 1;
 var shootbutton, shootimg;
+var scene;
 
 function preload(){  
-  backgroundImage = loadImage("background0_long_width&height.png");
+  backgroundImage = loadImage("background0og.png");//_long_width&height.png);
   shootimg = loadImage("shoot.png")
   arrowImage = loadImage("arrow0.png");
   bowImage = loadImage("bow0.png");
@@ -26,8 +27,8 @@ function setup() {
   createCanvas(windowWidth, windowHeight);//400, 400
   
   // criar o fundo
-  scene = createSprite(width/2+100, height/2);// 0, 0, 400, 400
-  scene.addImage("backgroundimg", backgroundImage);
+  scene = createSprite(width/2, height/2, windowWidth, windowHeight);// 0, 0, 400, 400//width/2+100, height/2
+  //scene.addImage("backgroundimg", backgroundImage);
   scene.visible = false;
   
   shootbutton = createSprite(width/2, windowHeight-45);
@@ -54,11 +55,13 @@ function setup() {
 }
 
 function draw() {
- background('cyan');
+  background('cyan');
+  image(backgroundImage, 0, 0, width, height);
   if(gamestate == "server"){
     fill('cyan');
     stroke('green');
     textSize(45);
+    text("Clique Para Começar!", 35, 205);
     text("Pressione A Barra De Espaço", 35, 125);
     text("Para Atirar Flechas!", 35, 165);
     if(mousePressedOver(scene)
@@ -69,16 +72,16 @@ function draw() {
       gamestate = "play";
       bow.visible = true;
       shootbutton.visible = true;
-      scene.visible = true;
+      //scene.visible = true;
     }
   }
   if(score > highscore){
     highscore = score;
   }
   // movendo o fundo
-  if (scene.x < 670){
-    scene.x = scene.width/2;
-  }
+  //if (scene.x < 670){
+  //  scene.x = scene.width/2;
+  //}
   
   //movendo o arco
   if(!mouseIsOver(shootbutton)){
@@ -132,7 +135,7 @@ function draw() {
      if(keyDown("space")||mouseIsOver(shootbutton)){//&&mouseIsOver(shootbutton)) {
       createArrow();
     }
-  scene.velocityX = -3 
+  //scene.velocityX = -3 
   
   
  
@@ -168,7 +171,7 @@ if (World.frameCount % 100 == 0) {
     fill('cyan');
     stroke('green');
     text("Clique/Toque Para Jogar De Novo!", width/2-155, height/2);
-    scene.visible = false;
+    //scene.visible = false;
     bow.visible = false;
     shootbutton.visible = false;
     pinkB.destroyEach();
@@ -179,7 +182,7 @@ if (World.frameCount % 100 == 0) {
     purpleB.destroyEach();
     arrowGroup.destroyEach();
     greenB.destroyEach();
-    scene.velocityX = 0;
+    //scene.velocityX = 0;
     if(mousePressedOver(scene)
     ||mousePressedOver(bow)
     ||touches.length > 0){
@@ -328,7 +331,7 @@ function purpleBalloon() {
 }
 
 function reset(){
-  scene.visible = true;
+  //scene.visible = true;
   bow.visible = true;
   shootbutton.visible = true;
   gamestate = "play";//PLAY;
