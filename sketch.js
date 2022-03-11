@@ -1,12 +1,13 @@
 var bow , arrow,  background, redB, pinkB, greenB ,blueB, purpleB, yellowB, orangeB ,arrowGroup, edges;
-var bowImage, arrowImage, green_balloonImage, red_balloonImage, pink_balloonImage ,blue_balloonImage, backgroundImage, 
+var bowImage, arrowImage, green_balloonImage, red_balloonImage, pink_balloonImage ,blue_balloonImage, 
+backgroundImage, 
 purple_balloonImage, orange_balloonImage, yellow_balloonImage;
 //var END = 0;
 //var PLAY = 1;
 var gamestate = "server";
 var score = 1;
 var highscore = 1;
-var shootbutton, shootimg;
+var shootbutton, shootimg, shootbuttonhitbox;
 var scene;
 
 function preload(){  
@@ -31,10 +32,15 @@ function setup() {
   //scene.addImage("backgroundimg", backgroundImage);
   scene.visible = false;
   
-  shootbutton = createSprite(width/2, windowHeight-45);
-  shootbutton.addImage("buttonimg", shootimg);
-  shootbutton.scale = 0.2;
-  shootbutton.visible = false;
+  shootbuttonhitbox = createSprite(width/2, windowHeight-40);//width/2, windowHeight-45
+  shootbuttonhitbox.addImage("buttonimg", shootimg);
+  shootbuttonhitbox.scale = 0.2;
+  shootbuttonhitbox.visible = false;
+  
+  shootbutton = createButton("");
+  shootbutton.position(width/2-35, windowHeight-75);
+  shootbutton.class("shootbutton");
+  shootbutton.mousePressed(createArrow);
   
   // criando arco para atirar a flecha
   bow = createSprite(windowWidth-20, height/2, 20, 50);//380,220
@@ -57,6 +63,8 @@ function setup() {
 function draw() {
   background('cyan');
   image(backgroundImage, 0, 0, width, height);
+  //shootbuttonhitbox.x = shootbutton.x;
+  //shootbuttonhitbox.y = shootbutton.y;
   if(gamestate == "server"){
     fill('cyan');
     stroke('green');
@@ -66,7 +74,7 @@ function draw() {
     text("Para Atirar Flechas!", 35, 165);
     if(mousePressedOver(scene)
     ||mousePressedOver(bow)
-    ||mousePressedOver(shootbutton)
+    ||mousePressedOver(shootbuttonhitbox)
     ||touches.length > 0){
       touches = [];
       gamestate = "play";
@@ -84,7 +92,7 @@ function draw() {
   //}
   
   //movendo o arco
-  if(!mouseIsOver(shootbutton)){
+  if(!mouseIsOver(shootbuttonhitbox)){
     bow.y = World.mouseY;
   }
   
@@ -132,7 +140,7 @@ function draw() {
   console.log("Aleatório: "+select_balloon);
   if(gamestate == "play"){//PLAY){
     var select_balloon = Math.round(random(1,7));
-     if(keyDown("space")||mouseIsOver(shootbutton)){//&&mouseIsOver(shootbutton)) {
+     if(keyDown("space")){//||mouseIsOver(shootbutton)){//&&mouseIsOver(shootbutton)) {
       createArrow();
     }
   //scene.velocityX = -3 
