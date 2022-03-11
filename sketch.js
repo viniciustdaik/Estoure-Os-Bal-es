@@ -38,7 +38,7 @@ function setup() {
   shootbuttonhitbox.visible = false;
   
   shootbutton = createButton("");
-  shootbutton.position(width/2-35, windowHeight-75);
+  shootbutton.position(width/2-35, windowHeight+155);
   shootbutton.class("shootbutton");
   shootbutton.mousePressed(createArrow);
   
@@ -76,10 +76,11 @@ function draw() {
     ||mousePressedOver(bow)
     ||mousePressedOver(shootbuttonhitbox)
     ||touches.length > 0){
+      shootbutton.position(shootbutton.x, windowHeight-75);
       touches = [];
       gamestate = "play";
       bow.visible = true;
-      shootbutton.visible = true;
+      //shootbutton.visible = true;
       //scene.visible = true;
     }
   }
@@ -193,6 +194,7 @@ if (World.frameCount % 100 == 0) {
     //scene.velocityX = 0;
     if(mousePressedOver(scene)
     ||mousePressedOver(bow)
+    ||mousePressedOver(shootbuttonhitbox)
     ||touches.length > 0){
       touches = [];
       reset();
