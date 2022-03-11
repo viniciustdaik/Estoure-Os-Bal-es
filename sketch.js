@@ -181,7 +181,7 @@ if (World.frameCount % 100 == 0) {
     text("Clique/Toque Para Jogar De Novo!", width/2-155, height/2);
     //scene.visible = false;
     bow.visible = false;
-    shootbutton.visible = false;
+    //shootbutton.visible = false;
     pinkB.destroyEach();
     orangeB.destroyEach();
     redB.destroyEach();
@@ -341,7 +341,7 @@ function purpleBalloon() {
 function reset(){
   //scene.visible = true;
   bow.visible = true;
-  shootbutton.visible = true;
+  //shootbutton.visible = true;
   gamestate = "play";//PLAY;
   score = 1;
 
