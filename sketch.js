@@ -38,7 +38,7 @@ function setup() {
   shootbuttonhitbox.visible = false;
   
   shootbutton = createButton("");
-  shootbutton.position(width/2-35, windowHeight+155);
+  shootbutton.position(width/2-1000, windowHeight+-75);
   shootbutton.class("shootbutton");
   shootbutton.mousePressed(createArrow);
   
@@ -76,7 +76,7 @@ function draw() {
     ||mousePressedOver(bow)
     ||mousePressedOver(shootbuttonhitbox)
     ||touches.length > 0){
-      shootbutton.position(shootbutton.x, windowHeight-75);
+      shootbutton.position(width/2-35, windowHeight-75);
       touches = [];
       gamestate = "play";
       bow.visible = true;
