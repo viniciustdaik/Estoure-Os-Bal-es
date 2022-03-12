@@ -15,13 +15,13 @@ function preload(){
   shootimg = loadImage("shoot.png")
   arrowImage = loadImage("arrow0.png");
   bowImage = loadImage("bow0.png");
-  red_balloonImage = loadImage("red_balloon0.png");
-  green_balloonImage = loadImage("green_balloon0.png");
-  pink_balloonImage = loadImage("pink_balloon0.png");
-  blue_balloonImage = loadImage("blue_balloon0.png");
-  yellow_balloonImage = loadImage("yellow_balloon.png");
-  orange_balloonImage = loadImage("orange_balloon.png");
-  purple_balloonImage = loadImage("purple_balloon.png");
+  red_balloonImage = loadImage("./balloons/red_balloon0.png");
+  green_balloonImage = loadImage("./balloons/green_balloon0.png");
+  pink_balloonImage = loadImage("./balloons/pink_balloon0.png");
+  blue_balloonImage = loadImage("./balloons/blue_balloon0.png");
+  yellow_balloonImage = loadImage("./balloons/yellow_balloon.png");
+  orange_balloonImage = loadImage("./balloons/orange_balloon.png");
+  purple_balloonImage = loadImage("./balloons/purple_balloon.png");
 }
 
 function setup() {
