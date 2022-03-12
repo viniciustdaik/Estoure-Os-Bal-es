@@ -12,7 +12,7 @@ var scene;
 
 function preload(){  
   backgroundImage = loadImage("background0og.png");//_long_width&height.png);
-  shootimg = loadImage("shoot.png")
+  shootimg = loadImage("shoot.png");
   arrowImage = loadImage("arrow0.png");
   bowImage = loadImage("bow0.png");
   red_balloonImage = loadImage("./balloons/red_balloon0.png");
