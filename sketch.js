@@ -9,6 +9,9 @@ var score = 1;
 var highscore = 1;
 var shootbutton, shootimg, shootbuttonhitbox;
 var scene;
+var buttonActivePc = false;
+
+var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
 function preload(){  
   backgroundImage = loadImage("background0og.png");//_long_width&height.png);
@@ -38,7 +41,7 @@ function setup() {
   shootbuttonhitbox.visible = false;
   
   shootbutton = createButton("");
-  shootbutton.position(width/2-1000, windowHeight+-75);
+  shootbutton.position(width/2-1000, windowHeight-75);
   shootbutton.class("shootbutton");
   shootbutton.mousePressed(createArrow);
   
@@ -48,14 +51,14 @@ function setup() {
   bow.scale = 1;
   bow.visible = false;
   
-  redB= new Group();
-  greenB= new Group();
-  blueB= new Group();
-  pinkB= new Group();
+  redB = new Group();
+  greenB = new Group();
+  blueB = new Group();
+  pinkB = new Group();
   yellowB = new Group();
   orangeB = new Group();
   purpleB = new Group();
-  arrowGroup= new Group();  
+  arrowGroup = new Group();  
 
   edges = createEdgeSprites();
 }
@@ -69,14 +72,23 @@ function draw() {
     fill('cyan');
     stroke('green');
     textSize(45);
-    text("Clique Para Começar!", 35, 205);
-    text("Pressione A Barra De Espaço", 35, 125);
-    text("Para Atirar Flechas!", 35, 165);
+    if(!isMobile){
+      text("Clique Na Tela Para Começar!", 35, 205);
+      text("Pressione A Barra De Espaço", 35, 125);
+      text("Para Atirar Flechas!", 35, 165);
+    }else{
+      text("Toque Na Tela Para Começar!", 35, 205);
+      text("Pressione O Botão", 35, 125);
+      text("Para Atirar Flechas!", 35, 165);
+    }
+    
     if(mousePressedOver(scene)
     ||mousePressedOver(bow)
     ||mousePressedOver(shootbuttonhitbox)
     ||touches.length > 0){
-      shootbutton.position(width/2-35, windowHeight-75);
+      if(isMobile || !isMobile && buttonActivePc == true){
+        shootbutton.position(width/2-35, windowHeight-75);
+      }
       touches = [];
       gamestate = "play";
       bow.visible = true;
@@ -93,7 +105,7 @@ function draw() {
   //}
   
   //movendo o arco
-  if(!mouseIsOver(shootbuttonhitbox)){
+  if(!mouseIsOver(shootbuttonhitbox) || !isMobile && buttonActivePc == false){
     bow.y = World.mouseY;
   }
   
@@ -140,8 +152,11 @@ function draw() {
   console.log("Estado De Jogo: "+gamestate);
   console.log("Aleatório: "+select_balloon);
   if(gamestate == "play"){//PLAY){
+    if(buttonActivePc == true && shootbutton.position.x != width / 2 - 35){
+      shootbutton.position(width/2-35, windowHeight-75);
+    }
     var select_balloon = Math.round(random(1,7));
-     if(keyDown("space")){//||mouseIsOver(shootbutton)){//&&mouseIsOver(shootbutton)) {
+     if(keyWentDown("space")){//||mouseIsOver(shootbutton)){//&&mouseIsOver(shootbutton)) {
       createArrow();
     }
   //scene.velocityX = -3 
