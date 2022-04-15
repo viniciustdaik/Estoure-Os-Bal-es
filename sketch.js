@@ -1,4 +1,4 @@
-var bow , arrow,  background, redB, pinkB, greenB ,blueB, purpleB, yellowB, orangeB ,arrowGroup, edges;
+var bow, arrow,  background, redB, pinkB, greenB ,blueB, purpleB, yellowB, orangeB ,arrowGroup, edges;
 var bowImage, arrowImage, green_balloonImage, red_balloonImage, pink_balloonImage ,blue_balloonImage, 
 backgroundImage, 
 purple_balloonImage, orange_balloonImage, yellow_balloonImage;
