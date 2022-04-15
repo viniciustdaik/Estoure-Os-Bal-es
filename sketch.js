@@ -119,66 +119,73 @@ function draw() {
   
  
   if(redB.isTouching(edges[1])){
-    score = score - 1;
+    /*score = score - 1;
     for(var red of redB){
       if(red.isTouching(edges[1])){
         red.destroy();
       }
-    }
+    }*/
+    handleBalloon(redB, "red", false);
     //redB.destroyEach();
   }
   if(blueB.isTouching(edges[1])){
-    score = score - 1;
+    /*score = score - 1;
     for(var blue of blueB){
       if(blue.isTouching(edges[1])){
         blue.destroy();
       }
-    }
+    }*/
+    handleBalloon(blueB, "blue", false);
     //blueB.destroyEach();
   }
   if(purpleB.isTouching(edges[1])){
-    score = score - 1;
+    /*score = score - 1;
     for(var purple of purpleB){
       if(purple.isTouching(edges[1])){
         purple.destroy();
       }
-    }
+    }*/
+    handleBalloon(purpleB, "purple", false);
     //purpleB.destroyEach();
   }
   if(orangeB.isTouching(edges[1])){
-    score = score - 1;
+    /*score = score - 1;
     for(var orange of orangeB){
       if(orange.isTouching(edges[1])){
         orange.destroy();
       }
-    }
+    }*/
+    handleBalloon(orangeB, "orange", false);
     //orangeB.destroyEach();
   }
   if(yellowB.isTouching(edges[1])){
-    score = score - 1;
+    /*score = score - 1;
     for(var yellow of yellowB){
       if(yellow.isTouching(edges[1])){
         yellow.destroy();
       }
-    }
+    }*/
+    handleBalloon(yellowB, "yellow", false);
     //yellowB.destroyEach();
   }
   if(pinkB.isTouching(edges[1])){
-    score = score - 1;
+    /*score = score - 1;
     for(var pink of pinkB){
       if(pink.isTouching(edges[1])){
         pink.destroy();
       }
-    }
+    }*/ 
+    handleBalloon(pinkB, "pink", false);
     //pinkB.destroyEach();
   }
   if(greenB.isTouching(edges[1])){
-    score = score - 1;
+    /*score = score - 1;
     for(var green of greenB){
       if(green.isTouching(edges[1])){
         green.destroy();
       }
-    }
+    }*/
+    handleBalloon(greenB, "green", false);
     //greenB.destroyEach();
   }
   if(score == 0){
@@ -268,46 +275,46 @@ if (World.frameCount % 100 == 0) {
     //redB.destroyEach();
     //arrowGroup.destroyEach();
     score = score + 1;*/
-    popBalloon(redB, red);
+    handleBalloon(redB, "red", true);
   }
 
   if (arrowGroup.isTouching(greenB)) {
     /*greenB.destroyEach();
     arrowGroup.destroyEach();
     score=score+3;*/
-    popBalloon(greenB, green);
+    handleBalloon(greenB, "green", true);
   }
 
   if (arrowGroup.isTouching(blueB)) {
     /*blueB.destroyEach();
     arrowGroup.destroyEach();
     score=score+2;*/
-    popBalloon(blueB, blue);
+    handleBalloon(blueB, "blue", true);
   }
 
   if (arrowGroup.isTouching(pinkB)) {
     /*pinkB.destroyEach();
     arrowGroup.destroyEach();
     score=score+1;*/
-    popBalloon(pinkB, pink);
+    handleBalloon(pinkB, "pink", true);
   }
   if (arrowGroup.isTouching(purpleB)) {
     /*purpleB.destroyEach();
     arrowGroup.destroyEach();
     score=score+1;*/
-    popBalloon(purpleB, purple);
+    handleBalloon(purpleB, "purple", true);
   }
   if (arrowGroup.isTouching(yellowB)) {
     /*yellowB.destroyEach();
     arrowGroup.destroyEach();
     score=score+1;*/
-    popBalloon(yellowB, yellow);
+    handleBalloon(yellowB, "yellow", true);
   }
   if (arrowGroup.isTouching(orangeB)) {
     /*orangeB.destroyEach();
     arrowGroup.destroyEach();
     score=score+1;*/
-    popBalloon(orangeB, orange);
+    handleBalloon(orangeB, "orange", true);
   }
 
   drawSprites();
@@ -419,14 +426,22 @@ function reset(){
 
 }
 
-function popBalloon(balloonG, balloon){
+function handleBalloon(balloonG, balloon, pop){
   for(var balloon of balloonG){
+    if(pop == false){
+      balloon.destroy();
+    }
     for(var arrow of arrowGroup){
-      if(arrow.isTouching(balloon)){
+      if(arrow.isTouching(balloon) && pop == true){
         balloon.destroy();
         arrow.destroy();
       }
     }
   }
-  score = score + 1;
+  if(pop == true){
+    score = score + 1;
+  }else{
+    score = score - 1;
+  }
+  
 }
