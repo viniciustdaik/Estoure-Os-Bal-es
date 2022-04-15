@@ -41,12 +41,12 @@ function setup() {
   shootbuttonhitbox.visible = false;
   
   shootbutton = createButton("");
-  shootbutton.position(width/2-1000, windowHeight-75);
+  shootbutton.position(width/2 - 1000, windowHeight - 75);
   shootbutton.class("shootbutton");
   shootbutton.mousePressed(createArrow);
   
   // criando arco para atirar a flecha
-  bow = createSprite(windowWidth-20, height/2, 20, 50);//380,220
+  bow = createSprite(windowWidth - 20, height / 2, 20, 50);//380,220
   bow.addImage("bowimg", bowImage); 
   bow.scale = 1;
   bow.visible = false;
@@ -119,32 +119,67 @@ function draw() {
   
  
   if(redB.isTouching(edges[1])){
-    score = score-1;
-    redB.destroyEach();
+    score = score - 1;
+    for(var red of redB){
+      if(red.isTouching(edges[1])){
+        red.destroy();
+      }
+    }
+    //redB.destroyEach();
   }
   if(blueB.isTouching(edges[1])){
-    score = score-1;
-    blueB.destroyEach();
+    score = score - 1;
+    for(var blue of blueB){
+      if(blue.isTouching(edges[1])){
+        blue.destroy();
+      }
+    }
+    //blueB.destroyEach();
   }
   if(purpleB.isTouching(edges[1])){
-    score = score-1;
-    purpleB.destroyEach();
+    score = score - 1;
+    for(var purple of purpleB){
+      if(purple.isTouching(edges[1])){
+        purple.destroy();
+      }
+    }
+    //purpleB.destroyEach();
   }
   if(orangeB.isTouching(edges[1])){
-    score = score-1;
-    orangeB.destroyEach();
+    score = score - 1;
+    for(var orange of orangeB){
+      if(orange.isTouching(edges[1])){
+        orange.destroy();
+      }
+    }
+    //orangeB.destroyEach();
   }
   if(yellowB.isTouching(edges[1])){
-    score = score-1;
-    yellowB.destroyEach();
+    score = score - 1;
+    for(var yellow of yellowB){
+      if(yellow.isTouching(edges[1])){
+        yellow.destroy();
+      }
+    }
+    //yellowB.destroyEach();
   }
   if(pinkB.isTouching(edges[1])){
-    score = score-1;
-    pinkB.destroyEach();
+    score = score - 1;
+    for(var pink of pinkB){
+      if(pink.isTouching(edges[1])){
+        pink.destroy();
+      }
+    }
+    //pinkB.destroyEach();
   }
   if(greenB.isTouching(edges[1])){
-    score = score-1;
-    greenB.destroyEach();
+    score = score - 1;
+    for(var green of greenB){
+      if(green.isTouching(edges[1])){
+        green.destroy();
+      }
+    }
+    //greenB.destroyEach();
   }
   if(score == 0){
     gamestate = "end";//END;
@@ -194,7 +229,12 @@ if (World.frameCount % 100 == 0) {
     textSize(20);
     fill('cyan');
     stroke('green');
-    text("Clique/Toque Para Jogar De Novo!", width/2-155, height/2);
+    if(!isMobile){
+      text("Clique Para Jogar De Novo!", width/2-155, height/2);
+    }else{
+      text("Toque Para Jogar De Novo!", width/2-155, height/2);
+    }
+    
     //scene.visible = false;
     bow.visible = false;
     //shootbutton.visible = false;
@@ -217,42 +257,57 @@ if (World.frameCount % 100 == 0) {
   }
   
   if (arrowGroup.isTouching(redB)) {
-    redB.destroyEach();
-    arrowGroup.destroyEach();
-    score=score+1;
+    /*for(var arrow of arrowGroup){
+      for(var red of redB){
+        if(arrow.isTouching(red)){
+          arrow.destroy();
+          red.destroy();
+        }
+      }
+    }
+    //redB.destroyEach();
+    //arrowGroup.destroyEach();
+    score = score + 1;*/
+    popBalloon(redB, red);
   }
 
   if (arrowGroup.isTouching(greenB)) {
-    greenB.destroyEach();
+    /*greenB.destroyEach();
     arrowGroup.destroyEach();
-    score=score+3;
+    score=score+3;*/
+    popBalloon(greenB, green);
   }
 
   if (arrowGroup.isTouching(blueB)) {
-    blueB.destroyEach();
+    /*blueB.destroyEach();
     arrowGroup.destroyEach();
-    score=score+2;
+    score=score+2;*/
+    popBalloon(blueB, blue);
   }
 
   if (arrowGroup.isTouching(pinkB)) {
-    pinkB.destroyEach();
+    /*pinkB.destroyEach();
     arrowGroup.destroyEach();
-    score=score+1;
+    score=score+1;*/
+    popBalloon(pinkB, pink);
   }
   if (arrowGroup.isTouching(purpleB)) {
-    purpleB.destroyEach();
+    /*purpleB.destroyEach();
     arrowGroup.destroyEach();
-    score=score+1;
+    score=score+1;*/
+    popBalloon(purpleB, purple);
   }
   if (arrowGroup.isTouching(yellowB)) {
-    yellowB.destroyEach();
+    /*yellowB.destroyEach();
     arrowGroup.destroyEach();
-    score=score+1;
+    score=score+1;*/
+    popBalloon(yellowB, yellow);
   }
   if (arrowGroup.isTouching(orangeB)) {
-    orangeB.destroyEach();
+    /*orangeB.destroyEach();
     arrowGroup.destroyEach();
-    score=score+1;
+    score=score+1;*/
+    popBalloon(orangeB, orange);
   }
 
   drawSprites();
@@ -362,4 +417,16 @@ function reset(){
   gamestate = "play";//PLAY;
   score = 1;
 
+}
+
+function popBalloon(balloonG, balloon){
+  for(var balloon of balloonG){
+    for(var arrow of arrowGroup){
+      if(arrow.isTouching(balloon)){
+        balloon.destroy();
+        arrow.destroy();
+      }
+    }
+  }
+  score = score + 1;
 }
