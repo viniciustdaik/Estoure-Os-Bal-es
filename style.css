@@ -1,13 +1,17 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
+
 canvas {
   display: block;
 }
 
-.shootbutton{
-  width:70px;
+.shootbutton {
+  width: 70px;
   height: 70px;
   border-radius: 35px;
   background-image: url('../arrow0.png');
@@ -18,7 +22,8 @@ canvas {
   padding: 10px;
   display: inline-block;
   cursor: pointer;
-  -webkit-transition-duration: 0.4s; /* Safari */
+  -webkit-transition-duration: 0.4s;
+  /* Safari */
   transition-duration: 0.4s;
   outline: none;
 }
